@@ -2,53 +2,34 @@
 #include <vector>
 #include <iostream>
 
-// our maths lib
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
-// Our loader - loads OpenGL functions so we don't have to do this manually
 #include <glad/glad.h>
-// Windowing library - allows us to easily make windows in an OS-independent way
 #include <GLFW/glfw3.h>
 
 #include <stb/stb_image.h>
 
+#include <utils.hpp>
+#include <primitives.hpp>
 
+// TO-DO: Move camera logic into a different file
 // camera
 glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f, 0.0f);
 
+// TO-DO: delta helper function
 // timing
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
-// a simple function to load a shader
-GLuint load_shader(const std::string &path, GLenum type) {
-    std::string source = chicken3421::read_file(path);
-    const char* src = source.data();
-
-    GLuint shader = glCreateShader(type);
-    glShaderSource(shader, 1, &src, nullptr);
-    glCompileShader(shader);
-    return shader;
-}
-
 // handle all keyboard inputs
 void process_input(GLFWwindow *window);
 
-// make and return a pointer to a GLFWwindow
-GLFWwindow *make_window(int width, int height, std::string title) {
-    GLFWwindow *window = glfwCreateWindow(width, height, title.data(), nullptr, nullptr);
-    if (!window) {
-        std::cerr << "Window won't open" << std::endl;
-        abort();
-    }
-    return window;
-}
-
 int main() {
+    // TODO: Make util function
     // Initialise GLFW
     int success = glfwInit();
     if (!success) {
@@ -56,7 +37,7 @@ int main() {
         abort();
     }
 
-    GLFWwindow *window = make_window(1920, 1080, "Simple Shooter");
+    GLFWwindow *window = utils::make_window(1920, 1080, "Simple Shooter");
 
     glfwMakeContextCurrent(window);
 
@@ -66,8 +47,8 @@ int main() {
 
     // load shader
     GLuint vert_shader, frag_shader;
-    vert_shader = load_shader("res/shaders/shader.vert", GL_VERTEX_SHADER);
-    frag_shader = load_shader("res/shaders/shader.frag", GL_FRAGMENT_SHADER);
+    vert_shader = utils::load_shader("res/shaders/shader.vert", GL_VERTEX_SHADER);
+    frag_shader = utils::load_shader("res/shaders/shader.frag", GL_FRAGMENT_SHADER);
 
     // create and link our shader program
     GLuint program = glCreateProgram();
@@ -77,18 +58,10 @@ int main() {
 
     glUseProgram(program);
 
-    // setup vertex data - each row is a vertex. 
-    // first 3 points in each row are the vertex (x,y,z) co-ordinates, 
-    // second 3 are the *color*
-    std::vector<float> verts = {
-            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-            0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 1.0f, 1.0f, 0.0f,
-            0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-            0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
 
-    };
+    // make basic rect
+    primitives::mesh_t rect = primitives::make_rect();
+
 
     std::vector<glm::vec3> wallPositions = {
             // first hallway
@@ -123,29 +96,10 @@ int main() {
             glm::vec3(4.0f, 1.0f, 4.0f)
     };
 
-    // setup vao and vbo for walls
-    GLuint vao, vbo;
-    glGenVertexArrays(1, &vao);
-    glGenBuffers(1, &vbo);
 
-    glBindVertexArray(vao);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, (GLintptr) verts.size() * sizeof(float), &verts[0], GL_STATIC_DRAW);
 
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *) 0);
 
-    // Let's setup the color for our VAO
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *) (sizeof(float) * 3));
-
-    // setup texture co-ordinates for our VAO
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 8 , (void *) (sizeof(float) * 6));
-
-    // Unbinds the vao
-    glBindVertexArray(0);
-
+    // TO-DO: texture class and/or file (probably file)
     // let's load + create our texture!
     GLuint cobble_texture;
     glGenTextures(1, &cobble_texture);
@@ -169,7 +123,7 @@ int main() {
     }
     stbi_image_free(data);
 
-/
+
     // set our texture sampler uniform
     glUniform1i(glGetUniformLocation(program, "ourTexture"),0);
 
@@ -212,7 +166,7 @@ int main() {
 
             glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, &model[0][0]);
             glUseProgram(program);
-            glBindVertexArray(vao);
+            glBindVertexArray(rect.vao);
             glDrawArrays(GL_TRIANGLES, 0, 6);
         }
 
@@ -224,6 +178,7 @@ int main() {
     glfwTerminate();
 }
 
+// this is actually okay
 void process_input(GLFWwindow *window) {
 
     // do stuff
