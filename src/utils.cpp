@@ -5,6 +5,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <stb/stb_image.h>
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -21,6 +23,22 @@ namespace utils {
             std::cerr << "Window won't open" << std::endl;
             abort();
         }
+        return window;
+    }
+
+    GLFWwindow *initial_setup() {
+        int success = glfwInit();
+        if (!success) {
+            std::cerr << "failed to initialise GLFW" << std::endl;
+            abort();
+        }
+
+        // TODO: make width/height dynamic
+        GLFWwindow *window = utils::make_window(1920, 1080, "Simple Shooter");
+
+        glfwMakeContextCurrent(window);
+        gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
+
         return window;
     }
 
@@ -55,5 +73,44 @@ namespace utils {
         glCompileShader(shader);
         return shader;
     }
+
+    GLuint make_shader(GLuint vert_shader, GLuint frag_shader) {
+        GLuint program = glCreateProgram();
+        glAttachShader(program, vert_shader);
+        glAttachShader(program, frag_shader);
+        glLinkProgram(program);
+        return program;
+    }
+
+    GLuint make_texture(const std::string &path) {
+        // let's load + create our texture!
+        GLuint tex;
+        glGenTextures(1, &tex);
+
+        // don't believe this line is needed but I think it's good practice - esp. with Macs being Macs
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, tex);
+        // set texture wrapping parameters
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        // set texture filtering parameters
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        // load image, create texture, generate mipmaps
+        int width, height, nrChannels;
+        stbi_set_flip_vertically_on_load(true);
+        unsigned char *data = stbi_load(path.data(), &width, &height, &nrChannels, 0);
+        if (data) {
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+            glGenerateMipmap(GL_TEXTURE_2D);
+        } else {
+            std::cerr << "Failed to load texture" << std::endl;
+        }
+        stbi_image_free(data);
+
+        return tex;
+    }
+
 }
 
