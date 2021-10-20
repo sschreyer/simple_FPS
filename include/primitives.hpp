@@ -9,6 +9,7 @@ namespace primitives {
     };
 
     mesh_t make_rect();
+    mesh_t make_rect(int n_sq_h, int n_sq_v);
 };
 
 #endif //SIMPLE_SHOOTER_PRIMITIVES_H

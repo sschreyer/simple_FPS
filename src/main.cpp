@@ -1,15 +1,11 @@
 #include <string>
 #include <vector>
-#include <iostream>
-
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
-#include <stb/stb_image.h>
 
 #include <utils.hpp>
 #include <primitives.hpp>
@@ -36,40 +32,15 @@ int main() {
 
 
     // make basic rect
-    primitives::mesh_t rect = primitives::make_rect();
+    primitives::mesh_t rect = primitives::make_rect(5, 3);
 
     // this can stay in this file for now.
-    std::vector<glm::vec3> wallPositions = {
+    std::vector<glm::mat4> wallTransforms = {
             // first hallway
-
-            // 1st side
-            // 1st row
-            glm::vec3( 0.0f,  0.0f,  0.0f),
-            glm::vec3(1.0f, 0.0f, 0.0f),
-            glm::vec3(2.0f, 0.0f, 0.0f),
-            glm::vec3(3.0f, 0.0f, 0.0f),
-            glm::vec3(4.0f, 0.0f, 0.0f),
-            // 2nd row
-            glm::vec3(0.0f, 1.0f, 0.0f),
-            glm::vec3(1.0f, 1.0f, 0.0f),
-            glm::vec3(2.0f, 1.0f, 0.0f),
-            glm::vec3(3.0f, 1.0f, 0.0f),
-            glm::vec3(4.0f, 1.0f, 0.0f),
-
-            // 2nd side
-            // 1st rwo
-            glm::vec3( 0.0f,  0.0f, 4.0f),
-            glm::vec3(1.0f, 0.0f, 4.0f),
-            glm::vec3(2.0f, 0.0f, 4.0f),
-            glm::vec3(3.0f, 0.0f, 4.0f),
-            glm::vec3(4.0f, 0.0f, 4.0f),
-
-            // 2nd row
-            glm::vec3(0.0f, 1.0f, 4.0f),
-            glm::vec3(1.0f, 1.0f, 4.0f),
-            glm::vec3(2.0f, 1.0f, 4.0f),
-            glm::vec3(3.0f, 1.0f, 4.0f),
-            glm::vec3(4.0f, 1.0f, 4.0f)
+            glm::translate(glm::mat4(1), glm::vec3(0, 0, 3)),
+            glm::translate(glm::mat4(1), glm::vec3(0, 0, -3)),
+            glm::translate(glm::mat4(1), glm::vec3(0, 1.5, 0)) * glm::rotate(glm::mat4(1), glm::radians(90.f), glm::vec3(1, 0, 0)) * glm::scale(glm::mat4(1), glm::vec3(5,5,5)),
+            glm::translate(glm::mat4(1), glm::vec3(0, -1.5, 0)) * glm::rotate(glm::mat4(1), glm::radians(90.f), glm::vec3(1, 0, 0)) * glm::scale(glm::mat4(1), glm::vec3(5,5,5))
     };
 
     GLuint cobble_texture = utils::make_texture("res/assets/Mossy_Cobblestone.png");
@@ -83,7 +54,7 @@ int main() {
     glUniformMatrix4fv(glGetUniformLocation(program, "projection"), 1, GL_FALSE, &projection[0][0]);
 
     // make camera
-    camera::camera_t cam = camera::make_camera(glm::vec3(0,0,5), glm::vec3(0,0,0));
+    camera::camera_t cam = camera::make_camera(glm::vec3(0,0,1.5f), glm::vec3(0,0,0));
 
     // make camera move with mouse
     glfwSetWindowUserPointer(window, &cam);
@@ -108,17 +79,17 @@ int main() {
         glBindTexture(GL_TEXTURE_2D, cobble_texture);
 
         // draw the walls
-        for (auto &wallPos : wallPositions)
+        for (auto &wallTranslate : wallTransforms)
         {
             // calc model matrix for every wall
             glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(model, wallPos);
+            model = wallTranslate;
 
             glUniformMatrix4fv(glGetUniformLocation(program, "mvp"), 1, GL_FALSE, glm::value_ptr(projection * camera::get_view(cam) * model));
             glUseProgram(program);
             glBindVertexArray(rect.vao);
             glBindTexture(GL_TEXTURE_2D, cobble_texture);
-            glDrawArrays(GL_TRIANGLES, 0, 6);
+            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         }
 
         // get events and swap buffers
