@@ -51,14 +51,15 @@ namespace primitives {
     }
 
     mesh_t make_rect(int n_sq_h, int n_sq_v) {
-        // setup vertex data - each row is a vertex.
-        // first 3 points in each row are the vertex (x,y,z) co-ordinates,
-        // second 3 are the *color*
         std::vector<float> verts = {
-                -1.f * n_sq_h, -1.f * n_sq_v, 0.0f, 0.0f * n_sq_h, 0.0f * n_sq_v,
-                1.f * n_sq_h, -1.f * n_sq_v, 0.0f, 1.0f * n_sq_h, 0.0f * n_sq_v,
-                1.f * n_sq_h,  1.f  * n_sq_v, 0.0f, 1.0f * n_sq_h, 1.0f * n_sq_v,
-                -1.f * n_sq_h,  1.f * n_sq_v, 0.0f, 0.0f * n_sq_h, 1.0f * n_sq_v
+                // x, y, z, u, v, n (x, y, z)
+                // TODO: update normals? I don't think this will work properly for lighting...
+                // actually assuming the direction is correct, may need to just flip it depending on where
+                // the rect is translated to...
+                -1.f * n_sq_h, -1.f * n_sq_v, 0.0f, 0.0f * n_sq_h, 0.0f * n_sq_v, 0, 0, 1.f,
+                1.f * n_sq_h, -1.f * n_sq_v, 0.0f, 1.0f * n_sq_h, 0.0f * n_sq_v, 0, 0, 1.f,
+                1.f * n_sq_h,  1.f  * n_sq_v, 0.0f, 1.0f * n_sq_h, 1.0f * n_sq_v, 0, 0, 1.f,
+                -1.f * n_sq_h,  1.f * n_sq_v, 0.0f, 0.0f * n_sq_h, 1.0f * n_sq_v, 0, 0, 1.f
         };
 
         std::vector<int> indices = {
@@ -80,11 +81,11 @@ namespace primitives {
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, (GLintptr) indices.size() * sizeof(float), &indices[0], GL_STATIC_DRAW);
 
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 5, (void *) 0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *) 0);
 
         // setup texture co-ordinates for our VAO
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 5 , (void *) (sizeof(float) * 3));
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 8 , (void *) (sizeof(float) * 3));
 
 
 
@@ -92,7 +93,77 @@ namespace primitives {
         glBindVertexArray(0);
 
 
+        // TODO: ebo should be here lmao
+        return {vao, vbo};
+    }
+
+    mesh_t make_light_cube() {
+        // tcs exist because I haven't taken them out...they're not needed
+        std::vector<float> verts = {
+                // positions          // normals           // texture coords
+                -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
+                0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  0.0f,
+                0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
+                0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
+                -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  1.0f,
+                -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
+
+                -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
+                0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  0.0f,
+                0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
+                0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
+                -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  1.0f,
+                -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
+
+                -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
+                -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
+                -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
+                -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
+                -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
+                -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
+
+                0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
+                0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
+                0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
+                0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
+                0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
+                0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
+
+                -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
+                0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  1.0f,
+                0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
+                0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
+                -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  0.0f,
+                -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
+
+                -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f,
+                0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  1.0f,
+                0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
+                0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
+                -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
+                -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
+        };
+
+        // setup vao, vbo
+        GLuint vao, vbo;
+        glGenVertexArrays(1, &vao);
+        glGenBuffers(1, &vbo);
+
+        glBindVertexArray(vao);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBufferData(GL_ARRAY_BUFFER, (GLintptr) verts.size() * sizeof(float), &verts[0], GL_STATIC_DRAW);
+
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *) 0);
+
+        // setup normals for our vao
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *) (sizeof(float) * 3));
+
+        // Unbinds the vao
+        glBindVertexArray(0);
 
         return {vao, vbo};
+
     }
 }

@@ -64,8 +64,8 @@ int main() {
 
     // load shader
     GLuint vert_shader, frag_shader;
-    vert_shader = load_shader("res/shaders/shader.vert", GL_VERTEX_SHADER);
-    frag_shader = load_shader("res/shaders/shader.frag", GL_FRAGMENT_SHADER);
+    vert_shader = load_shader("res/shaders/basic_vert.glsl", GL_VERTEX_SHADER);
+    frag_shader = load_shader("res/shaders/basic_frag.glsl", GL_FRAGMENT_SHADER);
 
     // create our shader program that will run on the GPU
     GLuint program = glCreateProgram();

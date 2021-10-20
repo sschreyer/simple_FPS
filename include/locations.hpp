@@ -2,7 +2,8 @@
 #define SIMPLE_SHOOTER_LOCATIONS_H
 
 namespace locations {
-    void draw_starting_room();
+    void setup_room();
+    void draw_starting_room(GLuint reg_shader, GLuint light_shader, glm::mat4 proj, glm::mat4 view);
 }
 
 #endif //SIMPLE_SHOOTER_LOCATIONS_H
