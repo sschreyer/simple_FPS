@@ -14,6 +14,8 @@
 #include <model.hpp>
 
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 // TODO: delta helper function? Possibly overkill.
 // timing
@@ -41,8 +43,9 @@ int main() {
     // TODO: alter values??
     cobble_materials.shininess = 0.1;
 
-    // set our texture sampler uniform
-    glUniform1i(glGetUniformLocation(reg_shader, "ourTexture"),0);
+    glUniform1i(glGetUniformLocation(reg_shader, "material.diffuse"), 0);
+    glUniform3f(glGetUniformLocation(reg_shader, "material.specular"), 0.5f, 0.5f, 0.5f);
+    glUniform1f(glGetUniformLocation(reg_shader, "material.shininess"), 0.2f);
 
     // Pass our projection matrix to the shader - remove magic nums soon - TODO: possibly move this code as the flow isn't great now
     glm::mat4 projection = glm::perspective(glm::radians(45.f), 1920.0f / 1080.0f, 0.1f, 100.0f);
@@ -90,6 +93,8 @@ int main() {
         // get events and swap buffers
         glfwPollEvents();
         glfwSwapBuffers(window);
+
+        std::this_thread::sleep_for(std::chrono::duration<float, std::milli>(1000.f / 60));
     }
 
     glfwTerminate();
