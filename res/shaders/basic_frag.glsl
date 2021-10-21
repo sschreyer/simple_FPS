@@ -32,7 +32,7 @@ void main() {
     float diff = max(dot(n, lightDir), 0.0);
     vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
 
-    vec3 result = ambient * diffuse;
+    vec3 result = ambient + diffuse;
     FragColor = vec4(result, 1.0);
 }
 

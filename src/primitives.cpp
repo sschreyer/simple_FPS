@@ -102,47 +102,47 @@ namespace primitives {
     mesh_t make_cube(int size) {
                std::vector<float> verts = {
                 // positions          // normals           // texture coords
-                -1.f * size, -1.f * size, -1.f * size,  0.0f,  0.0f, 1.0f,  0.0f * size,  0.0f * size,
-                1.f * size, -1.f * size, -1.f * size,  0.0f,  0.0f, 1.0f,  1.0f * size,  0.0f * size,
-                1.f * size,  1.f * size, -1.f * size,  0.0f,  0.0f, 1.0f,  1.0f * size,  1.0f * size,
-                1.f * size,  1.f * size, -1.f * size,  0.0f,  0.0f, 1.0f,  1.0f * size,  1.0f * size,
-                -1.f * size,  1.f * size, -1.f * size,  0.0f,  0.0f, 1.0f,  0.0f * size,  1.0f * size,
-                -1.f * size, -1.f * size, -1.f * size,  0.0f,  0.0f, 1.0f,  0.0f * size,  0.0f * size,
+                -0.5f * size, -0.5f * size, -0.5f * size,  0.0f,  0.0f, -1.0f,  0.0f * size,  0.0f * size,
+                0.5f * size, -0.5f * size, -0.5f * size,  0.0f,  0.0f, -1.0f,  1.0f * size,  0.0f * size,
+                0.5f * size,  0.5f * size, -0.5f * size,  0.0f,  0.0f, -1.0f,  1.0f * size,  1.0f * size,
+                0.5f * size,  0.5f * size, -0.5f * size,  0.0f,  0.0f, -1.0f,  1.0f * size,  1.0f * size,
+                -0.5f * size,  0.5f * size, -0.5f * size,  0.0f,  0.0f, -1.0f,  0.0f * size,  1.0f * size,
+                -0.5f * size, -0.5f * size, -0.5f * size,  0.0f,  0.0f, -1.0f,  0.0f * size,  0.0f * size,
 
-                -1.f * size, -1.f * size,  1.f * size,  0.0f,  0.0f,  -1.0f,  0.0f * size,  0.0f * size,
-                1.f * size, -1.f * size,  1.f * size,  0.0f,  0.0f,  -1.0f,  1.0f * size,  0.0f * size,
-                1.f * size,  1.f * size,  1.f * size,  0.0f,  0.0f,  -1.0f,  1.0f * size,  1.0f * size,
-                1.f * size,  1.f * size,  1.f * size,  0.0f,  0.0f,  -1.0f,  1.0f * size,  1.0f * size,
-                -1.f * size,  1.f * size,  1.f * size,  0.0f,  0.0f,  -1.0f,  0.0f * size,  1.0f * size,
-                -1.f * size, -1.f * size,  1.f * size,  0.0f,  0.0f,  -1.0f,  0.0f * size,  0.0f * size,
+                -0.5f * size, -0.5f * size,  0.5f * size,  0.0f,  0.0f,  1.0f,  0.0f * size,  0.0f * size,
+                0.5f * size, -0.5f * size,  0.5f * size,  0.0f,  0.0f,  1.0f,  1.0f * size,  0.0f * size,
+                0.5f * size,  0.5f * size,  0.5f * size,  0.0f,  0.0f,  1.0f,  1.0f * size,  1.0f * size,
+                0.5f * size,  0.5f * size,  0.5f * size,  0.0f,  0.0f,  1.0f,  1.0f * size,  1.0f * size,
+                -0.5f * size,  0.5f * size,  0.5f * size,  0.0f,  0.0f, 1.0f,  0.0f * size,  1.0f * size,
+                -0.5f * size, -0.5f * size,  0.5f * size,  0.0f,  0.0f, 1.0f,  0.0f * size,  0.0f * size,
 
-                -1.f * size,  1.f * size,  1.f * size, 1.0f,  0.0f,  0.0f,  1.0f * size,  0.0f * size,
-                -1.f * size,  1.f * size, -1.f * size, 1.0f,  0.0f,  0.0f,  1.0f * size,  1.0f * size,
-                -1.f * size, -1.f * size, -1.f * size, 1.0f,  0.0f,  0.0f,  0.0f * size,  1.0f * size,
-                -1.f * size, -1.f * size, -1.f * size, 1.0f,  0.0f,  0.0f,  0.0f * size,  1.0f * size,
-                -1.f * size, -1.f * size,  1.f * size, 1.0f,  0.0f,  0.0f,  0.0f * size,  0.0f * size,
-                -1.f * size,  1.f * size,  1.f * size, 1.0f,  0.0f,  0.0f,  1.0f * size,  0.0f * size,
+                -0.5f * size,  0.5f * size,  0.5f * size, -1.0f,  0.0f,  0.0f,  1.0f * size,  0.0f * size,
+                -0.5f * size,  0.5f * size, -0.5f * size, -1.0f,  0.0f,  0.0f,  1.0f * size,  1.0f * size,
+                -0.5f * size, -0.5f * size, -0.5f * size, -1.0f,  0.0f,  0.0f,  0.0f * size,  1.0f * size,
+                -0.5f * size, -0.5f * size, -0.5f * size, -1.0f,  0.0f,  0.0f,  0.0f * size,  1.0f * size,
+                -0.5f * size, -0.5f * size,  0.5f * size, -1.0f,  0.0f,  0.0f,  0.0f * size,  0.0f * size,
+                -0.5f * size,  0.5f * size,  0.5f * size, -1.0f,  0.0f,  0.0f,  1.0f * size,  0.0f * size,
 
-                1.f * size,  1.f * size,  1.f * size,  -1.0f,  0.0f,  0.0f,  1.0f * size,  0.0f * size,
-                1.f * size,  1.f * size, -1.f * size,  -1.0f,  0.0f,  0.0f,  1.0f * size,  1.0f * size,
-                1.f * size, -1.f * size, -1.f * size,  -1.0f,  0.0f,  0.0f,  0.0f * size,  1.0f * size,
-                1.f * size, -1.f * size, -1.f * size,  -1.0f,  0.0f,  0.0f,  0.0f * size,  1.0f * size,
-                1.f * size, -1.f * size,  1.f * size,  -1.0f,  0.0f,  0.0f,  0.0f * size,  0.0f * size,
-                1.f * size,  1.f * size,  1.f * size,  -1.0f,  0.0f,  0.0f,  1.0f * size,  0.0f * size,
+                0.5f * size,  0.5f * size,  0.5f * size,  1.0f,  0.0f,  0.0f,  1.0f * size,  0.0f * size,
+                0.5f * size,  0.5f * size, -0.5f * size,  1.0f,  0.0f,  0.0f,  1.0f * size,  1.0f * size,
+                0.5f * size, -0.5f * size, -0.5f * size,  1.0f,  0.0f,  0.0f,  0.0f * size,  1.0f * size,
+                0.5f * size, -0.5f * size, -0.5f * size,  1.0f,  0.0f,  0.0f,  0.0f * size,  1.0f * size,
+                0.5f * size, -0.5f * size,  0.5f * size,  1.0f,  0.0f,  0.0f,  0.0f * size,  0.0f * size,
+                0.5f * size,  0.5f * size,  0.5f * size,  1.0f,  0.0f,  0.0f,  1.0f * size,  0.0f * size,
 
-                -1.f * size, -1.f * size, -1.f * size,  0.0f, 1.0f,  0.0f,  0.0f * size,  1.0f * size,
-                1.f * size, -1.f * size, -1.f * size,  0.0f, 1.0f,  0.0f,  1.0f * size,  1.0f * size,
-                1.f * size, -1.f * size,  1.f * size,  0.0f, 1.0f,  0.0f,  1.0f * size,  0.0f * size,
-                1.f * size, -1.f * size,  1.f * size,  0.0f, 1.0f,  0.0f,  1.0f * size,  0.0f * size,
-                -1.f * size, -1.f * size,  1.f * size,  0.0f, 1.0f,  0.0f,  0.0f * size,  0.0f * size,
-                -1.f * size, -1.f * size, -1.f * size,  0.0f, 1.0f,  0.0f,  0.0f * size,  1.0f * size,
+                -0.5f * size, -0.5f * size, -0.5f * size,  0.0f, -1.0f,  0.0f,  0.0f * size,  1.0f * size,
+                0.5f * size, -0.5f * size, -0.5f * size,  0.0f,  -1.0f,  0.0f,  1.0f * size,  1.0f * size,
+                0.5f * size, -0.5f * size,  0.5f * size,  0.0f,  -1.0f,  0.0f,  1.0f * size,  0.0f * size,
+                0.5f * size, -0.5f * size,  0.5f * size,  0.0f,  -1.0f,  0.0f,  1.0f * size,  0.0f * size,
+                -0.5f * size, -0.5f * size,  0.5f * size,  0.0f, -1.0f,  0.0f,  0.0f * size,  0.0f * size,
+                -0.5f * size, -0.5f * size, -0.5f * size,  0.0f, -1.0f,  0.0f,  0.0f * size,  1.0f * size,
 
-                -1.f * size,  1.f * size, -1.f * size,  0.0f,  -1.0f,  0.0f,  0.0f * size,  1.0f * size,
-                1.f * size,  1.f * size, -1.f * size,  0.0f,  -1.0f,  0.0f,  1.0f * size,  1.0f * size,
-                1.f * size,  1.f * size,  1.f * size,  0.0f,  -1.0f,  0.0f,  1.0f * size,  0.0f * size,
-                1.f * size,  1.f * size,  1.f * size,  0.0f,  -1.0f,  0.0f,  1.0f * size,  0.0f * size,
-                -1.f * size,  1.f * size,  1.f * size,  0.0f,  -1.0f,  0.0f,  0.0f * size,  0.0f * size,
-                -1.f * size,  1.f * size, -1.f * size,  0.0f,  -1.0f,  0.0f,  0.0f * size,  1.0f * size
+                -0.5f * size,  0.5f * size, -0.5f * size,  0.0f, 1.0f,  0.0f,  0.0f * size,  1.0f * size,
+                0.5f * size,  0.5f * size, -0.5f * size,  0.0f,  1.0f,  0.0f,  1.0f * size,  1.0f * size,
+                0.5f * size,  0.5f * size,  0.5f * size,  0.0f,  1.0f,  0.0f,  1.0f * size,  0.0f * size,
+                0.5f * size,  0.5f * size,  0.5f * size,  0.0f,  1.0f,  0.0f,  1.0f * size,  0.0f * size,
+                -0.5f * size,  0.5f * size,  0.5f * size,  0.0f, 1.0f,  0.0f,  0.0f * size,  0.0f * size,
+                -0.5f * size,  0.5f * size, -0.5f * size,  0.0f, 1.0f,  0.0f,  0.0f * size,  1.0f * size
         };
 
         // setup vao, vbo
@@ -159,7 +159,7 @@ namespace primitives {
 
         // setup normals for our vao
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *) (sizeof(float) * 3));
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *) (sizeof(float) * 3));
 
         // setup tcs
         glEnableVertexAttribArray(2);
@@ -229,10 +229,10 @@ namespace primitives {
 
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *) 0);
-
-        // setup normals for our vao
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *) (sizeof(float) * 3));
+//
+//        // setup normals for our vao
+//        glEnableVertexAttribArray(1);
+//        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *) (sizeof(float) * 3));
 
         // Unbinds the vao
         glBindVertexArray(0);

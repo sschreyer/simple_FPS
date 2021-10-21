@@ -8,11 +8,11 @@ out vec2 TexCoords;
 out vec3 Normal;
 
 uniform mat4 model;
-uniform mat4 vp;
+uniform mat4 pv;
 
 void main() {
-    gl_Position = vp * model * vec4(vert_pos, 1.0f);
+    gl_Position = pv * model * vec4(vert_pos, 1.0f);
     FragPos = vec3(model * vec4(vert_pos, 1.0));
-    Normal = inNormal;
+    Normal = mat3(transpose(inverse(model))) * inNormal;
     TexCoords = inTexCoords;
 }
