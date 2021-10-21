@@ -20,13 +20,14 @@ namespace locations {
         light = primitives::make_light_cube();
     }
 
-    void draw_starting_room(GLuint reg_shader, GLuint light_shader, glm::mat4 proj, glm::mat4 view) {
+    void draw_starting_room(GLuint reg_shader, GLuint light_shader, glm::mat4 proj, glm::mat4 view, glm::vec3 cam_pos) {
         // draw room
         glUseProgram(reg_shader);
-        glUniform3f(glGetUniformLocation(reg_shader, "light.ambient"), 0.2f, 0.2f, 0.2f);
+        glUniform3f(glGetUniformLocation(reg_shader, "light.ambient"), 0.15f, 0.15f, 0.15f);
         glUniform3f(glGetUniformLocation(reg_shader, "light.position"), 0.f, 0.f, 0.f);
-        glUniform3f(glGetUniformLocation(reg_shader, "light.diffuse"), 0.7f, 0.7f, 0.7f);
-        glUniform3f(glGetUniformLocation(reg_shader, "light.specular"), 0.9f, 0.9f, 0.9f);
+        glUniform3f(glGetUniformLocation(reg_shader, "light.diffuse"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(reg_shader, "light.specular"), 0.2f, 0.2f, 0.2f);
+        glUniform3f(glGetUniformLocation(reg_shader, "camPos"), cam_pos.x, cam_pos.y, cam_pos.z);
 
         glm::mat4 model = glm::translate(glm::mat4(1), glm::vec3(0, 1, 15)); //glm::mat4(1.0f);
 
@@ -54,8 +55,8 @@ namespace locations {
 //
 //    std::vector<glm::mat4> wall_positions;
 //    std::vector<glm::mat4> roof_positions;
-//
-//    // TODO: probably pass in width and height for room? make it make a closed room? who knows...
+
+    // TODO: probably pass in width and height for room? make it make a closed room? who knows...
 //    void setup_room() {
 //        wall = primitives::make_rect(20, 3);
 //        roof = primitives::make_rect(20, 12);
@@ -85,7 +86,7 @@ namespace locations {
 //            glm::mat4 model = glm::mat4(1.0f);
 //            model = wall_pos;
 //
-//            glUniformMatrix4fv(glGetUniformLocation(reg_shader, "vp"), 1, GL_FALSE, glm::value_ptr(proj * view));
+//            glUniformMatrix4fv(glGetUniformLocation(reg_shader, "pv"), 1, GL_FALSE, glm::value_ptr(proj * view));
 //            glUniformMatrix4fv(glGetUniformLocation(reg_shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
 //            glBindVertexArray(wall.vao);
 //
@@ -98,7 +99,7 @@ namespace locations {
 //            glm::mat4 model = glm::mat4(1.0f);
 //            model = roof_pos;
 //
-//            glUniformMatrix4fv(glGetUniformLocation(reg_shader, "vp"), 1, GL_FALSE, glm::value_ptr(proj * view));
+//            glUniformMatrix4fv(glGetUniformLocation(reg_shader, "pv"), 1, GL_FALSE, glm::value_ptr(proj * view));
 //            glUniformMatrix4fv(glGetUniformLocation(reg_shader, "model"), 1, GL_FALSE, glm::value_ptr(model));
 //            glBindVertexArray(roof.vao);
 //

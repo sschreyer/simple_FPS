@@ -41,11 +41,11 @@ int main() {
     model::material_t cobble_materials;
     cobble_materials.tex = cobble_texture;
     // TODO: alter values??
-    cobble_materials.shininess = 0.1;
+    //cobble_materials.shininess = 64;
 
     glUniform1i(glGetUniformLocation(reg_shader, "material.diffuse"), 0);
     glUniform3f(glGetUniformLocation(reg_shader, "material.specular"), 0.5f, 0.5f, 0.5f);
-    glUniform1f(glGetUniformLocation(reg_shader, "material.shininess"), 0.2f);
+    glUniform1f(glGetUniformLocation(reg_shader, "material.shininess"), 64);
 
     // Pass our projection matrix to the shader - remove magic nums soon - TODO: possibly move this code as the flow isn't great now
     glm::mat4 projection = glm::perspective(glm::radians(45.f), 1920.0f / 1080.0f, 0.1f, 100.0f);
@@ -62,7 +62,7 @@ int main() {
     //glUseProgram(light_shader);
 
     // make camera
-    camera::camera_t cam = camera::make_camera(glm::vec3(0,0,1.5f), glm::vec3(0,0,0));
+    camera::camera_t cam = camera::make_camera(glm::vec3(0.f,0.f,1.5f), glm::vec3(0,0,0));
 
     // make camera move with mouse
     glfwSetWindowUserPointer(window, &cam);
@@ -88,7 +88,7 @@ int main() {
 
         // draw the room
         locations::setup_room();
-        locations::draw_starting_room(reg_shader, light_shader, projection, camera::get_view(cam));
+        locations::draw_starting_room(reg_shader, light_shader, projection, camera::get_view(cam), cam.pos);
 
         // get events and swap buffers
         glfwPollEvents();
