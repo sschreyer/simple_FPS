@@ -102,47 +102,47 @@ namespace primitives {
     mesh_t make_cube(int size) {
                std::vector<float> verts = {
                 // positions          // normals           // texture coords
-                -0.5f * size, -0.5f * size, -0.5f * size,  0.0f,  0.0f, -1.0f,  0.0f * size,  0.0f * size,
-                0.5f * size, -0.5f * size, -0.5f * size,  0.0f,  0.0f, -1.0f,  1.0f * size,  0.0f * size,
-                0.5f * size,  0.5f * size, -0.5f * size,  0.0f,  0.0f, -1.0f,  1.0f * size,  1.0f * size,
-                0.5f * size,  0.5f * size, -0.5f * size,  0.0f,  0.0f, -1.0f,  1.0f * size,  1.0f * size,
-                -0.5f * size,  0.5f * size, -0.5f * size,  0.0f,  0.0f, -1.0f,  0.0f * size,  1.0f * size,
-                -0.5f * size, -0.5f * size, -0.5f * size,  0.0f,  0.0f, -1.0f,  0.0f * size,  0.0f * size,
+                -0.5f * size, -0.5f * size, -0.5f * size,  0.0f,  0.0f, 1.0f,  0.0f * size,  0.0f * size,
+                0.5f * size, -0.5f * size, -0.5f * size,  0.0f,  0.0f, 1.0f,  1.0f * size,  0.0f * size,
+                0.5f * size,  0.5f * size, -0.5f * size,  0.0f,  0.0f, 1.0f,  1.0f * size,  1.0f * size,
+                0.5f * size,  0.5f * size, -0.5f * size,  0.0f,  0.0f, 1.0f,  1.0f * size,  1.0f * size,
+                -0.5f * size,  0.5f * size, -0.5f * size,  0.0f,  0.0f, 1.0f,  0.0f * size,  1.0f * size,
+                -0.5f * size, -0.5f * size, -0.5f * size,  0.0f,  0.0f, 1.0f,  0.0f * size,  0.0f * size,
 
-                -0.5f * size, -0.5f * size,  0.5f * size,  0.0f,  0.0f,  1.0f,  0.0f * size,  0.0f * size,
-                0.5f * size, -0.5f * size,  0.5f * size,  0.0f,  0.0f,  1.0f,  1.0f * size,  0.0f * size,
-                0.5f * size,  0.5f * size,  0.5f * size,  0.0f,  0.0f,  1.0f,  1.0f * size,  1.0f * size,
-                0.5f * size,  0.5f * size,  0.5f * size,  0.0f,  0.0f,  1.0f,  1.0f * size,  1.0f * size,
-                -0.5f * size,  0.5f * size,  0.5f * size,  0.0f,  0.0f, 1.0f,  0.0f * size,  1.0f * size,
-                -0.5f * size, -0.5f * size,  0.5f * size,  0.0f,  0.0f, 1.0f,  0.0f * size,  0.0f * size,
+                -0.5f * size, -0.5f * size,  0.5f * size,  0.0f,  0.0f,  -1.0f,  0.0f * size,  0.0f * size,
+                0.5f * size, -0.5f * size,  0.5f * size,  0.0f,  0.0f,  -1.0f,  1.0f * size,  0.0f * size,
+                0.5f * size,  0.5f * size,  0.5f * size,  0.0f,  0.0f,  -1.0f,  1.0f * size,  1.0f * size,
+                0.5f * size,  0.5f * size,  0.5f * size,  0.0f,  0.0f,  -1.0f,  1.0f * size,  1.0f * size,
+                -0.5f * size,  0.5f * size,  0.5f * size,  0.0f,  0.0f, -1.0f,  0.0f * size,  1.0f * size,
+                -0.5f * size, -0.5f * size,  0.5f * size,  0.0f,  0.0f, -1.0f,  0.0f * size,  0.0f * size,
 
-                -0.5f * size,  0.5f * size,  0.5f * size, -1.0f,  0.0f,  0.0f,  1.0f * size,  0.0f * size,
-                -0.5f * size,  0.5f * size, -0.5f * size, -1.0f,  0.0f,  0.0f,  1.0f * size,  1.0f * size,
-                -0.5f * size, -0.5f * size, -0.5f * size, -1.0f,  0.0f,  0.0f,  0.0f * size,  1.0f * size,
-                -0.5f * size, -0.5f * size, -0.5f * size, -1.0f,  0.0f,  0.0f,  0.0f * size,  1.0f * size,
-                -0.5f * size, -0.5f * size,  0.5f * size, -1.0f,  0.0f,  0.0f,  0.0f * size,  0.0f * size,
-                -0.5f * size,  0.5f * size,  0.5f * size, -1.0f,  0.0f,  0.0f,  1.0f * size,  0.0f * size,
+                -0.5f * size,  0.5f * size,  0.5f * size, 1.0f,  0.0f,  0.0f,  1.0f * size,  0.0f * size,
+                -0.5f * size,  0.5f * size, -0.5f * size, 1.0f,  0.0f,  0.0f,  1.0f * size,  1.0f * size,
+                -0.5f * size, -0.5f * size, -0.5f * size, 1.0f,  0.0f,  0.0f,  0.0f * size,  1.0f * size,
+                -0.5f * size, -0.5f * size, -0.5f * size, 1.0f,  0.0f,  0.0f,  0.0f * size,  1.0f * size,
+                -0.5f * size, -0.5f * size,  0.5f * size, 1.0f,  0.0f,  0.0f,  0.0f * size,  0.0f * size,
+                -0.5f * size,  0.5f * size,  0.5f * size, 1.0f,  0.0f,  0.0f,  1.0f * size,  0.0f * size,
 
-                0.5f * size,  0.5f * size,  0.5f * size,  1.0f,  0.0f,  0.0f,  1.0f * size,  0.0f * size,
-                0.5f * size,  0.5f * size, -0.5f * size,  1.0f,  0.0f,  0.0f,  1.0f * size,  1.0f * size,
-                0.5f * size, -0.5f * size, -0.5f * size,  1.0f,  0.0f,  0.0f,  0.0f * size,  1.0f * size,
-                0.5f * size, -0.5f * size, -0.5f * size,  1.0f,  0.0f,  0.0f,  0.0f * size,  1.0f * size,
-                0.5f * size, -0.5f * size,  0.5f * size,  1.0f,  0.0f,  0.0f,  0.0f * size,  0.0f * size,
-                0.5f * size,  0.5f * size,  0.5f * size,  1.0f,  0.0f,  0.0f,  1.0f * size,  0.0f * size,
+                0.5f * size,  0.5f * size,  0.5f * size,  -1.0f,  0.0f,  0.0f,  1.0f * size,  0.0f * size,
+                0.5f * size,  0.5f * size, -0.5f * size,  -1.0f,  0.0f,  0.0f,  1.0f * size,  1.0f * size,
+                0.5f * size, -0.5f * size, -0.5f * size,  -1.0f,  0.0f,  0.0f,  0.0f * size,  1.0f * size,
+                0.5f * size, -0.5f * size, -0.5f * size,  -1.0f,  0.0f,  0.0f,  0.0f * size,  1.0f * size,
+                0.5f * size, -0.5f * size,  0.5f * size,  -1.0f,  0.0f,  0.0f,  0.0f * size,  0.0f * size,
+                0.5f * size,  0.5f * size,  0.5f * size,  -1.0f,  0.0f,  0.0f,  1.0f * size,  0.0f * size,
 
-                -0.5f * size, -0.5f * size, -0.5f * size,  0.0f, -1.0f,  0.0f,  0.0f * size,  1.0f * size,
-                0.5f * size, -0.5f * size, -0.5f * size,  0.0f,  -1.0f,  0.0f,  1.0f * size,  1.0f * size,
-                0.5f * size, -0.5f * size,  0.5f * size,  0.0f,  -1.0f,  0.0f,  1.0f * size,  0.0f * size,
-                0.5f * size, -0.5f * size,  0.5f * size,  0.0f,  -1.0f,  0.0f,  1.0f * size,  0.0f * size,
-                -0.5f * size, -0.5f * size,  0.5f * size,  0.0f, -1.0f,  0.0f,  0.0f * size,  0.0f * size,
-                -0.5f * size, -0.5f * size, -0.5f * size,  0.0f, -1.0f,  0.0f,  0.0f * size,  1.0f * size,
+                -0.5f * size, -0.5f * size, -0.5f * size,  0.0f, 1.0f,  0.0f,  0.0f * size,  1.0f * size,
+                0.5f * size, -0.5f * size, -0.5f * size,  0.0f,  1.0f,  0.0f,  1.0f * size,  1.0f * size,
+                0.5f * size, -0.5f * size,  0.5f * size,  0.0f,  1.0f,  0.0f,  1.0f * size,  0.0f * size,
+                0.5f * size, -0.5f * size,  0.5f * size,  0.0f,  1.0f,  0.0f,  1.0f * size,  0.0f * size,
+                -0.5f * size, -0.5f * size,  0.5f * size,  0.0f, 1.0f,  0.0f,  0.0f * size,  0.0f * size,
+                -0.5f * size, -0.5f * size, -0.5f * size,  0.0f, 1.0f,  0.0f,  0.0f * size,  1.0f * size,
 
-                -0.5f * size,  0.5f * size, -0.5f * size,  0.0f, 1.0f,  0.0f,  0.0f * size,  1.0f * size,
-                0.5f * size,  0.5f * size, -0.5f * size,  0.0f,  1.0f,  0.0f,  1.0f * size,  1.0f * size,
-                0.5f * size,  0.5f * size,  0.5f * size,  0.0f,  1.0f,  0.0f,  1.0f * size,  0.0f * size,
-                0.5f * size,  0.5f * size,  0.5f * size,  0.0f,  1.0f,  0.0f,  1.0f * size,  0.0f * size,
-                -0.5f * size,  0.5f * size,  0.5f * size,  0.0f, 1.0f,  0.0f,  0.0f * size,  0.0f * size,
-                -0.5f * size,  0.5f * size, -0.5f * size,  0.0f, 1.0f,  0.0f,  0.0f * size,  1.0f * size
+                -0.5f * size,  0.5f * size, -0.5f * size,  0.0f, -1.0f,  0.0f,  0.0f * size,  1.0f * size,
+                0.5f * size,  0.5f * size, -0.5f * size,  0.0f,  -1.0f,  0.0f,  1.0f * size,  1.0f * size,
+                0.5f * size,  0.5f * size,  0.5f * size,  0.0f,  -1.0f,  0.0f,  1.0f * size,  0.0f * size,
+                0.5f * size,  0.5f * size,  0.5f * size,  0.0f,  -1.0f,  0.0f,  1.0f * size,  0.0f * size,
+                -0.5f * size,  0.5f * size,  0.5f * size,  0.0f, -1.0f,  0.0f,  0.0f * size,  0.0f * size,
+                -0.5f * size,  0.5f * size, -0.5f * size,  0.0f, -1.0f,  0.0f,  0.0f * size,  1.0f * size
         };
 
         // setup vao, vbo
@@ -240,4 +240,77 @@ namespace primitives {
         return {vao, vbo};
 
     }
+
+    mesh_t make_rect_prism(int size_x, int size_y, int size_z) {
+        std::vector<float> verts = {
+                // positions          // normals           // texture coords
+                -0.5f * size_x, -0.5f * size_y, -0.5f * size_z,  0.0f,  0.0f, 1.0f,  0.0f* size_x,  0.0f * size_y,
+                0.5f * size_x, -0.5f * size_y, -0.5f * size_z,  0.0f,  0.0f, 1.0f,  1.0f * size_x,  0.0f * size_y,
+                0.5f * size_x,  0.5f * size_y, -0.5f * size_z,  0.0f,  0.0f, 1.0f,  1.0f * size_x,  1.0f * size_y,
+                0.5f * size_x,  0.5f * size_y, -0.5f * size_z,  0.0f,  0.0f, 1.0f,  1.0f * size_x,  1.0f * size_y,
+                -0.5f * size_x,  0.5f * size_y, -0.5f * size_z,  0.0f,  0.0f, 1.0f,  0.0f * size_x,  1.0f * size_y,
+                -0.5f * size_x, -0.5f * size_y, -0.5f * size_z,  0.0f,  0.0f, 1.0f,  0.0f * size_x,  0.0f * size_y,
+
+                -0.5f * size_x, -0.5f * size_y,  0.5f * size_z,  0.0f,  0.0f,  -1.0f,  0.0f * size_x,  0.0f * size_y,
+                0.5f * size_x, -0.5f * size_y,  0.5f * size_z,  0.0f,  0.0f,  -1.0f,  1.0f * size_x,  0.0f * size_y,
+                0.5f * size_x,  0.5f * size_y,  0.5f * size_z,  0.0f,  0.0f,  -1.0f,  1.0f * size_x,  1.0f * size_y,
+                0.5f * size_x,  0.5f * size_y,  0.5f * size_z,  0.0f,  0.0f,  -1.0f,  1.0f * size_x,  1.0f * size_y,
+                -0.5f * size_x,  0.5f * size_y,  0.5f * size_z,  0.0f,  0.0f,  -1.0f,  0.0f * size_x,  1.0f * size_y,
+                -0.5f * size_x, -0.5f * size_y,  0.5f * size_z,  0.0f,  0.0f,  -1.0f,  0.0f * size_x,  0.0f * size_y,
+
+                -0.5f * size_x,  0.5f * size_y,  0.5f * size_z, 1.0f,  0.0f,  0.0f,  1.0f * size_y,  0.0f * size_z,
+                -0.5f * size_x,  0.5f * size_y, -0.5f * size_z, 1.0f,  0.0f,  0.0f,  1.0f * size_y,  1.0f * size_z,
+                -0.5f * size_x, -0.5f * size_y, -0.5f * size_z, 1.0f,  0.0f,  0.0f,  0.0f * size_y,  1.0f * size_z,
+                -0.5f * size_x, -0.5f * size_y, -0.5f * size_z, 1.0f,  0.0f,  0.0f,  0.0f * size_y,  1.0f * size_z,
+                -0.5f * size_x, -0.5f * size_y,  0.5f * size_z, 1.0f,  0.0f,  0.0f,  0.0f * size_y,  0.0f * size_z,
+                -0.5f * size_x,  0.5f * size_y,  0.5f * size_z, 1.0f,  0.0f,  0.0f,  1.0f * size_y,  0.0f * size_z,
+
+                0.5f * size_x,  0.5f * size_y,  0.5f * size_z,  -1.0f,  0.0f,  0.0f,  1.0f * size_y,  0.0f * size_z,
+                0.5f * size_x,  0.5f * size_y, -0.5f * size_z,  -1.0f,  0.0f,  0.0f,  1.0f * size_y,  1.0f * size_z,
+                0.5f * size_x, -0.5f * size_y, -0.5f * size_z,  -1.0f,  0.0f,  0.0f,  0.0f * size_y,  1.0f * size_z,
+                0.5f * size_x, -0.5f * size_y, -0.5f * size_z,  -1.0f,  0.0f,  0.0f,  0.0f * size_y,  1.0f * size_z,
+                0.5f * size_x, -0.5f * size_y,  0.5f * size_z,  -1.0f,  0.0f,  0.0f,  0.0f * size_y,  0.0f * size_z,
+                0.5f * size_x,  0.5f * size_y,  0.5f * size_z,  -1.0f,  0.0f,  0.0f,  1.0f * size_y,  0.0f * size_z,
+
+                -0.5f * size_x, -0.5f * size_y, -0.5f * size_z,  0.0f, 1.0f,  0.0f,  0.0f * size_x,  1.0f * size_z,
+                0.5f * size_x, -0.5f * size_y, -0.5f * size_z,  0.0f, 1.0f,  0.0f,  1.0f * size_x,  1.0f * size_z,
+                0.5f * size_x, -0.5f * size_y,  0.5f * size_z,  0.0f, 1.0f,  0.0f,  1.0f * size_x,  0.0f * size_z,
+                0.5f * size_x, -0.5f * size_y,  0.5f * size_z,  0.0f, 1.0f,  0.0f,  1.0f * size_x,  0.0f * size_z,
+                -0.5f * size_x, -0.5f * size_y,  0.5f * size_z,  0.0f, 1.0f,  0.0f,  0.0f * size_x,  0.0f * size_z,
+                -0.5f * size_x, -0.5f * size_y, -0.5f * size_z,  0.0f, 1.0f,  0.0f,  0.0f * size_x,  1.0f * size_z,
+
+                -0.5f * size_x,  0.5f * size_y, -0.5f * size_z,  0.0f,  -1.0f,  0.0f,  0.0f * size_x,  1.0f * size_z,
+                0.5f * size_x,  0.5f * size_y, -0.5f * size_z,  0.0f,  -1.0f,  0.0f,  1.0f * size_x,  1.0f * size_z,
+                0.5f * size_x,  0.5f * size_y,  0.5f * size_z,  0.0f,  -1.0f,  0.0f,  1.0f * size_x,  0.0f * size_z,
+                0.5f * size_x,  0.5f * size_y,  0.5f * size_z,  0.0f,  -1.0f,  0.0f,  1.0f * size_x,  0.0f * size_z,
+                -0.5f * size_x,  0.5f * size_y,  0.5f * size_z,  0.0f,  -1.0f,  0.0f,  0.0f * size_x,  0.0f * size_z,
+                -0.5f * size_x,  0.5f * size_y, -0.5f * size_z,  0.0f,  -1.0f,  0.0f,  0.0f * size_x,  1.0f * size_z
+        };
+
+        // setup vao, vbo
+        GLuint vao, vbo;
+        glGenVertexArrays(1, &vao);
+        glGenBuffers(1, &vbo);
+
+        glBindVertexArray(vao);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBufferData(GL_ARRAY_BUFFER, (GLintptr) verts.size() * sizeof(float), &verts[0], GL_STATIC_DRAW);
+
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *) 0);
+
+        // setup normals for our vao
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *) (sizeof(float) * 3));
+
+        // setup tcs
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void *) (sizeof(float) * 6));
+
+        // Unbinds the vao
+        glBindVertexArray(0);
+
+        return {vao, vbo};
+    }
+
 }
