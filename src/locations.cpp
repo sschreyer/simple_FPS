@@ -16,7 +16,7 @@ namespace locations {
     primitives::mesh_t light;
 
     void setup_room() {
-        room = primitives::make_rect_prism(5,3,5);
+        room = primitives::make_rect_prism(40,3,5);
         light = primitives::make_light_cube();
     }
 
@@ -27,6 +27,11 @@ namespace locations {
         glUniform3f(glGetUniformLocation(reg_shader, "light.position"), 0.f, 0.f, 0.f);
         glUniform3f(glGetUniformLocation(reg_shader, "light.diffuse"), 0.5f, 0.5f, 0.5f);
         glUniform3f(glGetUniformLocation(reg_shader, "light.specular"), 0.2f, 0.2f, 0.2f);
+        // light attenutation
+        glUniform1f(glGetUniformLocation(reg_shader, "light.constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(reg_shader, "light.linear"), 0.22f);
+        glUniform1f(glGetUniformLocation(reg_shader, "light.quadratic"), 0.20f);
+
         glUniform3f(glGetUniformLocation(reg_shader, "camPos"), cam_pos.x, cam_pos.y, cam_pos.z);
 
         glm::mat4 model = glm::mat4(1); //glm::translate(glm::mat4(1), glm::vec3(0, 1, 15)); //glm::mat4(1.0f);
@@ -40,6 +45,7 @@ namespace locations {
         // draw light cube
         // TODO: translate??
         model = glm::mat4(1);// glm::translate(glm::mat4(1), glm::vec3(0,0,0)); //glm::mat4(1.0f);
+        model *= glm::scale(glm::mat4(1), glm::vec3(0.3, 0.3, 0.3));
 
         glUseProgram(light_shader);
         glUniformMatrix4fv(glGetUniformLocation(light_shader, "mvp"), 1, GL_FALSE, glm::value_ptr(proj * view * model));

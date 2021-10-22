@@ -40,11 +40,18 @@ int main() {
     GLuint cobble_texture = utils::make_texture("res/assets/Mossy_Cobblestone.png");
     model::material_t cobble_materials;
     cobble_materials.tex = cobble_texture;
+
+    GLuint cobble_spec = utils::make_texture("res/assets/Mossy_Cobblestone_SPEC.png");
+    cobble_materials.specular = cobble_spec;
+
     // TODO: alter values??
     //cobble_materials.shininess = 64;
 
+
+    // not sure if needed
+
     glUniform1i(glGetUniformLocation(reg_shader, "material.diffuse"), 0);
-    glUniform3f(glGetUniformLocation(reg_shader, "material.specular"), 0.5f, 0.5f, 0.5f);
+    glUniform1i(glGetUniformLocation(reg_shader, "material.specular"), 1);
     glUniform1f(glGetUniformLocation(reg_shader, "material.shininess"), 64);
 
     // Pass our projection matrix to the shader - remove magic nums soon - TODO: possibly move this code as the flow isn't great now
@@ -84,7 +91,10 @@ int main() {
 
         // bind our textures!
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, cobble_texture);
+        glBindTexture(GL_TEXTURE_2D, cobble_materials.tex);
+
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, cobble_materials.specular);
 
         // draw the room
         locations::setup_room();

@@ -16,6 +16,7 @@ namespace primitives {
 
     mesh_t make_light_cube();
     mesh_t make_cube(int size);
+    mesh_t make_rect_prism(int size_x, int size_y, int size_z);
 };
 
 #endif //SIMPLE_SHOOTER_PRIMITIVES_H
