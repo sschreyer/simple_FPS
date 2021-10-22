@@ -26,10 +26,14 @@ target_sources(simple_shooter
         include/utils.hpp
         include/primitives.hpp
         include/camera.hpp
+        include/model.hpp
+        include/locations.hpp
 
         src/main.cpp
         src/utils.cpp
         src/primitives.cpp
         src/camera.cpp
+        src/model.cpp
+        src/locations.cpp
         )
 target_link_libraries(simple_shooter PUBLIC ${LIBS})
