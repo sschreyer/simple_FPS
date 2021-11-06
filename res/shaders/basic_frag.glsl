@@ -1,12 +1,15 @@
 #version 330 core
 
+// TODO: make this into a uniform?
+#define NUM_LIGHTS 2
+
 struct Material {
     sampler2D diffuse;
     sampler2D specular;
     float shininess;
 };
 
-struct Light {
+struct PointLight {
     vec3 position;
 
     vec3 ambient;
@@ -26,21 +29,20 @@ out vec4 FragColor;
 
 uniform vec3 camPos;
 uniform Material material;
-uniform Light light;
+uniform PointLight pointLights[NUM_LIGHTS];
 
-void main() {
+vec3 calcPointLight(PointLight light, vec3 normal, vec3 viewDir) {
     // ambient light
     vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoords));
 
     // diffuse
-    vec3 n = normalize(Normal);
+
     vec3 lightDir = normalize(light.position - FragPos);
-    float diff = max(dot(n, lightDir), 0.0);
+    float diff = max(dot(normal, lightDir), 0.0);
     vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoords));
 
     // specular
-    vec3 viewDir = normalize(camPos - FragPos);
-    vec3 reflectDir = reflect(-lightDir, n);
+    vec3 reflectDir = reflect(-lightDir, normal);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoords));
 
@@ -52,6 +54,20 @@ void main() {
     specular *= attenuation;
 
     vec3 result = ambient + diffuse + specular;
+
+    return result;
+}
+
+void main() {
+
+    vec3 result = vec3(0,0,0);
+    vec3 n = normalize(Normal);
+    vec3 viewDir = normalize(camPos - FragPos);
+    for (int i = 0; i < NUM_LIGHTS; i++) {
+        result += calcPointLight(pointLights[i], n, viewDir);
+    }
+
+
     FragColor = vec4(result, 1.0);
 }
 

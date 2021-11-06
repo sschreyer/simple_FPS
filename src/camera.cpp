@@ -6,7 +6,6 @@ namespace camera {
     // camera movement speed in units per second
     const float CAMERA_SPEED = 10.0f;
 
-
     camera_t make_camera(glm::vec3 pos, glm::vec3 target) {
 
         // target - pos will get us a vector from pos to target
@@ -42,9 +41,7 @@ namespace camera {
             cam.pos -= right * step;
         }
     }
-    // explanation on https://learnopengl.com/Getting-started/Camera
-    // essentially, take the mouse movement as rotations (yaw and pitch) around the y and x axes respectively
-    // x and y are just the mouse's position.
+
     void on_mouse_move(GLFWwindow *win, double x, double y) {
         static float xprev = x;
         static float yprev = y;
@@ -62,10 +59,7 @@ namespace camera {
 
         float yaw_r = glm::radians(yaw);
         float pitch_r = glm::radians(pitch);
-        // x and z are influenced by both pitch and yaw,
-        // whereas y is only influenced by yaw.
 
-        // go to LearnOpenGL for this
         c->front = glm::normalize(glm::vec3{
                 std::cos(yaw_r) * std::cos(pitch_r),
                 std::sin(pitch_r),
