@@ -1,5 +1,5 @@
 # Simple Shooter
-This is a very simple FPS that I am developing to improve my graphics skills.
+This is a very simple FPS that I am developing to improve my graphics skills. It is currently in an extremely early stage of development, with very little other than extremely basic lighting, textures, and camera having been implemented.
 
 Attributions:
 
