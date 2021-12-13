@@ -4,27 +4,20 @@
 
 namespace camera {
     // camera movement speed in units per second
-    const float CAMERA_SPEED = 10.0f;
+    const float CAMERA_SPEED = 5.0f;
 
     camera_t make_camera(glm::vec3 pos, glm::vec3 target) {
-
-        // target - pos will get us a vector from pos to target
-        // final vector is our up vector!
         return {pos, glm::normalize(target - pos), glm::vec3(0, 1, 0),0,0};
     }
 
     glm::mat4 get_view(const camera_t &camera) {
-        // glm::lookAt requires a position, a "target" (what we're looking at -
-        // "The direction is the current position + the direction vector we just defined. This ensures that however we move,
-        // the camera keeps looking at the target direction"),
-        // and an up vector!
         return glm::lookAt(camera.pos, camera.pos + camera.front, camera.up);
     }
 
     // this is very straightforward
     void update_camera(camera_t &cam, GLFWwindow *window, float dt) {
         glm::vec3 front = cam.front;
-        // We want movement speed to be consistent, so must normalise this
+
         glm::vec3 right = glm::normalize(glm::cross(front, cam.up));
         float step = dt * CAMERA_SPEED;
 
@@ -46,7 +39,7 @@ namespace camera {
         static float xprev = x;
         static float yprev = y;
 
-        // somewhat arbitrary sensitivity value (think about video games)
+        // somewhat arbitrary sensitivity value
         float xoffset = 0.1f * (x - xprev);
         float yoffset = 0.1f * (yprev - y); // reversed since y-coordinates range from bottom to top
 

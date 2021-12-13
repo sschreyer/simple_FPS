@@ -15,7 +15,7 @@
 #include <utils.hpp>
 
 namespace utils {
-    // TO-DO: Add APPLE #define
+    // TODO: Add APPLE #define
     // make and return a pointer to a GLFWwindow
     GLFWwindow *make_window(int width, int height, std::string title) {
         GLFWwindow *window = glfwCreateWindow(width, height, title.data(), nullptr, nullptr);
