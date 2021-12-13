@@ -7,7 +7,7 @@ namespace locations {
     enum {
         EMPTY,
         STATIC_MESH
-    } kind = EMPTY;
+    } kind;
 
     struct node_t {
         primitives::mesh_t mesh;
@@ -16,7 +16,7 @@ namespace locations {
         std::vector<node_t> children {};
     };
 
-    void setup_room();
+    node_t setup_room();
     void draw_starting_room(GLuint reg_shader, GLuint light_shader, glm::mat4 proj, glm::mat4 view, glm::vec3 cam_pos);
 }
 
