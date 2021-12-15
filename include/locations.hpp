@@ -2,6 +2,9 @@
 #define SIMPLE_SHOOTER_LOCATIONS_H
 
 #include <primitives.hpp>
+#include <camera.hpp>
+#include <light.hpp>
+#include <vector>
 
 namespace locations {
     enum {
@@ -13,11 +16,17 @@ namespace locations {
         primitives::mesh_t mesh;
         GLuint maps[2];
         glm::mat4 transform = glm::mat4(1);
-        std::vector<node_t> children {};
+        std::vector<node_t> children{};
     };
 
-    node_t setup_room();
-    void draw_starting_room(GLuint reg_shader, GLuint light_shader, glm::mat4 proj, glm::mat4 view, glm::vec3 cam_pos);
-}
+    struct scene_t {
+        camera::camera_t cam;
 
+        std::vector<point_light_t> point_lights;
+
+        node_t root;
+    };
+
+    scene_t setup_room(camera::camera_t cam);
+}
 #endif //SIMPLE_SHOOTER_LOCATIONS_H

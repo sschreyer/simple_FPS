@@ -14,7 +14,7 @@
 namespace locations {
 
     // TODO: remove these and change below functions to work better - making use of node_t struct
-    node_t setup_room() {
+    scene_t setup_room(camera::camera_t cam) {
         node_t light_1 {
                 primitives::make_light_cube(),
                 STATIC_MESH,
@@ -46,7 +46,11 @@ namespace locations {
                         {room}
         };
 
-        return root;
+        std::vector<point_light_t> pointlights;
+        pointlights.push_back({{0,0,2}, {0.5,0.5,0.5}, 0.2});
+        pointlights.push_back({{10,0,2}, {0.5,0.5,0.5}, 0.2});
+
+        return {cam, pointlights,  root};
     }
     // TODO: adapt or make new function for drawing nodes
 //    void draw_starting_room(GLuint reg_shader, GLuint light_shader, glm::mat4 proj, glm::mat4 view, glm::vec3 cam_pos) {

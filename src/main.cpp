@@ -12,6 +12,7 @@
 #include <camera.hpp>
 #include <locations.hpp>
 #include <model.hpp>
+#include <renderer.hpp>
 
 #include <iostream>
 #include <thread>
@@ -27,14 +28,7 @@ int main() {
     GLFWwindow *window = utils::initial_setup();
     glEnable(GL_DEPTH_TEST);
 
-    // load shader
-    GLuint vert_shader, frag_shader;
-    vert_shader = utils::load_shader("res/shaders/basic_vert.glsl", GL_VERTEX_SHADER);
-    frag_shader = utils::load_shader("res/shaders/basic_frag.glsl", GL_FRAGMENT_SHADER);
 
-    // create and link our shader program
-    GLuint reg_shader = utils::make_shader(vert_shader, frag_shader);
-    glUseProgram(reg_shader);
 
 
     GLuint cobble_texture = utils::make_texture("res/assets/Mossy_Cobblestone.png");
@@ -48,28 +42,31 @@ int main() {
     //cobble_materials.shininess = 64;
 
 
-    // not sure if needed
-
-    glUniform1i(glGetUniformLocation(reg_shader, "material.diffuse"), 0);
-    glUniform1i(glGetUniformLocation(reg_shader, "material.specular"), 1);
-    glUniform1f(glGetUniformLocation(reg_shader, "material.shininess"), 64);
-
     // Pass our projection matrix to the shader - remove magic nums soon - TODO: possibly move this code as the flow isn't great now
     glm::mat4 projection = glm::perspective(glm::radians(45.f), 1920.0f / 1080.0f, 0.1f, 100.0f);
-    glUniformMatrix4fv(glGetUniformLocation(reg_shader, "projection"), 1, GL_FALSE, &projection[0][0]);
+    renderer_t renderer = make_renderer(projection);
+
+    // not sure if needed
+    glUniform1i(glGetUniformLocation(renderer.program, "material.diffuse"), 0);
+    glUniform1i(glGetUniformLocation(renderer.program, "material.specular"), 1);
+    glUniform1f(glGetUniformLocation(renderer.program, "material.shininess"), 64);
+
+
 
     // setup light shader
     // load shader
     GLuint vert_shader1, frag_shader1;
-    vert_shader = utils::load_shader("res/shaders/light_src_vert.glsl", GL_VERTEX_SHADER);
-    frag_shader = utils::load_shader("res/shaders/light_src_frag.glsl", GL_FRAGMENT_SHADER);
+    vert_shader1 = utils::load_shader("res/shaders/light_src_vert.glsl", GL_VERTEX_SHADER);
+    frag_shader1 = utils::load_shader("res/shaders/light_src_frag.glsl", GL_FRAGMENT_SHADER);
 
     // create and link our shader program
-    GLuint light_shader = utils::make_shader(vert_shader, frag_shader);
+    GLuint light_shader = utils::make_shader(vert_shader1, frag_shader1);
     //glUseProgram(light_shader);
 
     // make camera
     camera::camera_t cam = camera::make_camera(glm::vec3(0.f,0.f,1.5f), glm::vec3(0,0,0));
+    // make camera
+    locations::scene_t scene = locations::setup_room(cam);
 
     // make camera move with mouse
     glfwSetWindowUserPointer(window, &cam);
@@ -80,10 +77,10 @@ int main() {
     while(!glfwWindowShouldClose(window)) {
         // calculate deltas
         float currentFrame = glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
+        int deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
-        camera::update_camera(cam, window, deltaTime);
+        camera::update_camera(scene.cam, window, deltaTime);
 
         // clear colour buffer, set background.
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -97,8 +94,7 @@ int main() {
         glBindTexture(GL_TEXTURE_2D, cobble_materials.specular);
 
         // draw the room
-        locations::setup_room();
-        locations::draw_starting_room(reg_shader, light_shader, projection, camera::get_view(cam), cam.pos);
+        render(renderer, scene);
 
         // get events and swap buffers
         glfwPollEvents();
