@@ -1,6 +1,10 @@
 #ifndef SIMPLE_SHOOTER_UTILS_H
 #define SIMPLE_SHOOTER_UTILS_H
 
+#include <glad/glad.h>
+#include <glfw/glfw3.h>
+#include <string>
+
 namespace utils {
     GLFWwindow *make_window(int width, int height, std::string title);
     GLFWwindow *initial_setup();

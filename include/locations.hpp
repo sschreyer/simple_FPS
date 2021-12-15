@@ -7,12 +7,12 @@
 #include <vector>
 
 namespace locations {
-    enum {
-        EMPTY,
-        STATIC_MESH
-    } kind;
-
     struct node_t {
+        enum {
+            EMPTY,
+            STATIC_MESH,
+            LIGHT_MESH
+        } kind;
         primitives::mesh_t mesh;
         GLuint maps[2];
         glm::mat4 transform = glm::mat4(1);

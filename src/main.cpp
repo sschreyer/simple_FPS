@@ -36,14 +36,12 @@ int main() {
     glEnable(GL_DEPTH_TEST);
 
 
-
-
-    GLuint cobble_texture = utils::make_texture("res/assets/Mossy_Cobblestone.png");
+//    GLuint cobble_texture = utils::make_texture("res/assets/Mossy_Cobblestone.png");
     model::material_t cobble_materials;
-    cobble_materials.tex = cobble_texture;
+//    cobble_materials.tex = cobble_texture;
 
     GLuint cobble_spec = utils::make_texture("res/assets/Mossy_Cobblestone_SPEC.png");
-    cobble_materials.specular = cobble_spec;
+//    cobble_materials.specular = cobble_spec;
 
     // TODO: alter values??
     //cobble_materials.shininess = 64;
@@ -54,21 +52,21 @@ int main() {
     renderer_t renderer = make_renderer(projection);
 
     // not sure if needed
-    glUniform1i(glGetUniformLocation(renderer.program, "material.diffuse"), 0);
-    glUniform1i(glGetUniformLocation(renderer.program, "material.specular"), 1);
+//    glUniform1i(glGetUniformLocation(renderer.program, "material.diffuse"), 0);
+//    glUniform1i(glGetUniformLocation(renderer.program, "material.specular"), 1);
     glUniform1f(glGetUniformLocation(renderer.program, "material.shininess"), 64);
 
-
-
-    // setup light shader
-    // load shader
-    GLuint vert_shader1, frag_shader1;
-    vert_shader1 = utils::load_shader("res/shaders/light_src_vert.glsl", GL_VERTEX_SHADER);
-    frag_shader1 = utils::load_shader("res/shaders/light_src_frag.glsl", GL_FRAGMENT_SHADER);
-
-    // create and link our shader program
-    GLuint light_shader = utils::make_shader(vert_shader1, frag_shader1);
-    //glUseProgram(light_shader);
+//
+//
+//    // setup light shader
+//    // load shader
+//    GLuint vert_shader1, frag_shader1;
+//    vert_shader1 = utils::load_shader("res/shaders/light_src_vert.glsl", GL_VERTEX_SHADER);
+//    frag_shader1 = utils::load_shader("res/shaders/light_src_frag.glsl", GL_FRAGMENT_SHADER);
+//
+//    // create and link our shader program
+//    GLuint light_shader = utils::make_shader(vert_shader1, frag_shader1);
+//    //glUseProgram(light_shader);
 
     // make starting room
     locations::scene_t scene = locations::setup_room();
@@ -91,11 +89,11 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // bind our textures!
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, cobble_materials.tex);
-
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, cobble_materials.specular);
+//        glActiveTexture(GL_TEXTURE0);
+//        glBindTexture(GL_TEXTURE_2D, cobble_materials.tex);
+//
+//        glActiveTexture(GL_TEXTURE1);
+//        glBindTexture(GL_TEXTURE_2D, cobble_materials.specular);
 
         // draw the room
         render(renderer, scene);

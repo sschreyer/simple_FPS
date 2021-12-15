@@ -7,6 +7,7 @@
 #include <string>
 #include <utils.hpp>
 #include <utility>
+#include <locations.hpp>
 
 renderer_t make_renderer(const glm::mat4 &projection) {
     // load shader
@@ -72,8 +73,20 @@ void render(const renderer_t &renderer, const locations::scene_t &scene) {
     std::string start = "pointLights[";
     std::string end = "]";
     for (const point_light_t &light : scene.point_lights ) {
-        std::string result = start + std::to_string(i) + end;
-        glGetUniformLocation(renderer.program, result.data());
+        std::string result = start + std::to_string(i) + end + ".position";
+        glUniform3fv(glGetUniformLocation(renderer.program, result.data()), 1, glm::value_ptr(light.pos));
+        result = start + std::to_string(i) + end + ".ambient";
+        // note: hardcoded
+        glUniform3fv(glGetUniformLocation(renderer.program, result.data()), 1, glm::value_ptr(glm::vec3(0.1,0.1,0.1)));
+        result = start + std::to_string(i) + end + ".diffuse";
+        glUniform3fv(glGetUniformLocation(renderer.program, result.data()), 1, glm::value_ptr(light.color));
+
+//        result = start + std::to_string(i) + end + ".linear";
+//        glUniform1f(glGetUniformLocation(renderer.program, result.data()), 0.1);
+
+
+
+
         i++;
     }
 
@@ -85,7 +98,11 @@ void render(const renderer_t &renderer, const locations::scene_t &scene) {
 
         glm::mat4 xform = parent_tf * node.transform;
 
-        draw(renderer, p, v, xform, node.mesh, node.maps[0]);
+        if (node.kind == locations::node_t::STATIC_MESH) {
+            draw(renderer, p, v, xform, node.mesh, node.maps[0]);
+        } else if (node.kind == locations::node_t::LIGHT_MESH) {
+            continue;
+        }
 
         for (const locations::node_t &c: node.children) {
             renderables.push({ c, xform });

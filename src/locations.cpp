@@ -1,4 +1,6 @@
+#include <glad/glad.h>
 #include <primitives.hpp>
+#include <utils.hpp>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -17,34 +19,35 @@ namespace locations {
         camera::camera_t cam = camera::make_camera(glm::vec3(0.f,0.f,1.5f), glm::vec3(0,0,0));
 
         node_t light_1 {
+                node_t::LIGHT_MESH,
                 primitives::make_light_cube(),
-                STATIC_MESH,
-                0,
+                {0,0},
                 glm::translate(glm::mat4(1), {0, 0, 2}),
                 {}
         };
 
         node_t light_2 {
+                node_t::LIGHT_MESH,
                 primitives::make_light_cube(),
-                STATIC_MESH,
-                0,
-                glm::translate(glm::mat4(1), {10, 0, 2}),
+                {0,0},
+                glm::translate(glm::mat4(1), {0, 0, 2}),
                 {}
         };
 
         node_t room {
+                node_t::STATIC_MESH,
                 primitives::make_rect_prism(40,3,5),
-                STATIC_MESH,
-                0,
+                {utils::make_texture("res/assets/Mossy_Cobblestone.png"),0},
                 glm::mat4(1),
                 {light_1, light_2}
         };
 
-        node_t root = {{},
-                        EMPTY,
-                        0,
-                        glm::mat4(1),
-                        {room}
+        node_t root = {
+                node_t::EMPTY,
+                {},
+                {0,0},
+                glm::mat4(1),
+                {room}
         };
 
         std::vector<point_light_t> pointlights;
