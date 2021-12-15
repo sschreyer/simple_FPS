@@ -18,10 +18,17 @@
 #include <thread>
 #include <chrono>
 
-// TODO: delta helper function? Possibly overkill.
-// timing
-float deltaTime = 0.0f;	// time between current frame and last frame
-float lastFrame = 0.0f;
+/**
+ * Returns the difference in time between when this function was previously called and this call.
+ * @return A float representing the difference between function calls in seconds.
+ */
+float time_delta();
+
+/**
+ * Returns the current time in seconds.
+ * @return Returns the current time in seconds.
+ */
+float time_now();
 
 int main() {
     // Initialise GLFW, make window, load OpenGL functions.
@@ -63,24 +70,21 @@ int main() {
     GLuint light_shader = utils::make_shader(vert_shader1, frag_shader1);
     //glUseProgram(light_shader);
 
-    // make camera
-    camera::camera_t cam = camera::make_camera(glm::vec3(0.f,0.f,1.5f), glm::vec3(0,0,0));
-    // make camera
-    locations::scene_t scene = locations::setup_room(cam);
+    // make starting room
+    locations::scene_t scene = locations::setup_room();
 
-    // make camera move with mouse
-    glfwSetWindowUserPointer(window, &cam);
+    // make camera move with mouse - TODO: change?
+    glfwSetWindowUserPointer(window, &scene.cam);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSetCursorPosCallback(window, camera::on_mouse_move);
 
     // Render loop
     while(!glfwWindowShouldClose(window)) {
-        // calculate deltas
-        float currentFrame = glfwGetTime();
-        int deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
+        // calculate delta time
+        float dt = time_delta();
 
-        camera::update_camera(scene.cam, window, deltaTime);
+
+        camera::update_camera(scene.cam, window, dt);
 
         // clear colour buffer, set background.
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -104,4 +108,16 @@ int main() {
     }
 
     glfwTerminate();
+}
+
+float time_delta() {
+    static float then = time_now();
+    float now = time_now();
+    float dt = now - then;
+    then = now;
+    return dt;
+}
+
+float time_now() {
+    return (float) glfwGetTime();
 }

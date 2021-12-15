@@ -12,9 +12,10 @@
 #include <model.hpp>
 
 namespace locations {
+    scene_t setup_room() {
+        // make camera
+        camera::camera_t cam = camera::make_camera(glm::vec3(0.f,0.f,1.5f), glm::vec3(0,0,0));
 
-    // TODO: remove these and change below functions to work better - making use of node_t struct
-    scene_t setup_room(camera::camera_t cam) {
         node_t light_1 {
                 primitives::make_light_cube(),
                 STATIC_MESH,

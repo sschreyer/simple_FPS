@@ -27,6 +27,6 @@ namespace locations {
         node_t root;
     };
 
-    scene_t setup_room(camera::camera_t cam);
+    scene_t setup_room();
 }
 #endif //SIMPLE_SHOOTER_LOCATIONS_H

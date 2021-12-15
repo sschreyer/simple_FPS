@@ -4,7 +4,7 @@
 
 namespace camera {
     // camera movement speed in units per second
-    const float CAMERA_SPEED = 5.0f;
+    const float CAMERA_SPEED = 10.0f;
 
     camera_t make_camera(glm::vec3 pos, glm::vec3 target) {
         return {pos, glm::normalize(target - pos), glm::vec3(0, 1, 0),0,0};

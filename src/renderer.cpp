@@ -53,7 +53,8 @@ draw(const renderer_t &renderer, const glm::mat4 &p, const glm::mat4 &v, const g
 
 void render(const renderer_t &renderer, const locations::scene_t &scene) {
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
+    // TODO: turn on when my assets/primitives actually support it
+//    glEnable(GL_CULL_FACE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
