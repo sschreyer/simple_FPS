@@ -37,7 +37,10 @@ namespace locations {
         node_t room {
                 node_t::STATIC_MESH,
                 primitives::make_rect_prism(40,3,5),
-                {utils::make_texture("res/assets/Mossy_Cobblestone.png"),0},
+                {
+                    utils::make_texture("res/assets/Mossy_Cobblestone.png"),
+                    utils::make_texture("res/assets/Mossy_Cobblestone_SPEC.png")
+                },
                 glm::mat4(1),
                 {light_1, light_2}
         };
@@ -51,8 +54,8 @@ namespace locations {
         };
 
         std::vector<point_light_t> pointlights;
-        pointlights.push_back({{0,0,2}, {0.5,0.5,0.5}, 0.2});
-        pointlights.push_back({{10,0,2}, {0.5,0.5,0.5}, 0.2});
+        pointlights.push_back({{0,0,2}, {0.5,0.5,0.5}, 1.0f, 0.22f, 0.20f});
+        pointlights.push_back({{10,0,2}, {0.5,0.5,0.5}, 1.0f, 0.22f, 0.20f});
 
         return {cam, pointlights,  root};
     }

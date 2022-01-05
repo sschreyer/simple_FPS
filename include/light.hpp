@@ -11,7 +11,9 @@ struct directional_light_t {
 struct point_light_t {
     glm::vec3 pos;
     glm::vec3 color;
-    float attenuation;
+    float constant;
+    float linear;
+    float quadratic;
 };
 
 #endif //SIMPLE_SHOOTER_LIGHT_HPP

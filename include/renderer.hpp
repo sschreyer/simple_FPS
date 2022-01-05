@@ -11,6 +11,7 @@ struct renderer_t {
     glm::mat4 projection;
 
     GLuint program;
+    GLuint lightcube_program;
 };
 
 renderer_t make_renderer(const glm::mat4 &projection);
