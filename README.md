@@ -1,6 +1,8 @@
 # Simple Shooter
 This is a very simple FPS that I am developing to improve my graphics skills. It is currently in an extremely early stage of development, with very little other than extremely basic lighting, textures, and camera having been implemented.
 
+Note: Development is effectively paused while I do a side game development project over the summer (the details of which cannot be shared here). As a result, this project is kind of in limbo with the code still in a pretty rough state.
+
 Attributions:
 
 Big thanks to Joey de Vries and his website, LearnOpenGL. I've used this site to learn graphics programming, 
