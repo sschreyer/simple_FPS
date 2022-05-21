@@ -38,15 +38,15 @@ renderer_t make_renderer(const glm::mat4 &projection) {
 // TODO: get working with light_src shaders
 void
 draw_lightcube(const renderer_t &renderer, const glm::mat4 &p, const glm::mat4 &v, const glm::mat4 &m, const locations::node_t &node) {
-    const primitives::mesh_t mesh = node.mesh;
+    const model::model_t model = node.model;
     glUseProgram(renderer.lightcube_program);
 
     glUniformMatrix4fv(glGetUniformLocation(renderer.lightcube_program, "mvp"), 1, GL_FALSE, glm::value_ptr(p * v * m));
 
-    glBindVertexArray(mesh.vao);
-    glBindBuffer(GL_ARRAY_BUFFER, mesh.vbo);
+    glBindVertexArray(model.mesh.vao);
+    glBindBuffer(GL_ARRAY_BUFFER, model.mesh.vbo);
 
-    // note: hardcoded for now
+    // TODO: change note: hardcoded for now
     glDrawArrays(GL_TRIANGLES, 0, 36);
 
     glBindVertexArray(0);
@@ -56,29 +56,28 @@ draw_lightcube(const renderer_t &renderer, const glm::mat4 &p, const glm::mat4 &
 
 void
 draw(const renderer_t &renderer, const glm::mat4 &p, const glm::mat4 &v, const glm::mat4 &m, const locations::node_t &node) {
-    const primitives::mesh_t mesh = node.mesh;
+    const model::model_t model = node.model;
 
 //    glUseProgram(renderer.program);
 
     // set maps
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, node.maps[0]);
+    glBindTexture(GL_TEXTURE_2D, model.mat.tex);
     glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, node.maps[1]);
+    glBindTexture(GL_TEXTURE_2D, model.mat.specular);
 
 
     glUniform1i(glGetUniformLocation(renderer.program, "material.diffuse"), 0);
     glUniform1i(glGetUniformLocation(renderer.program, "material.specular"), 1);
-    // note: hardcoded
-    glUniform1f(glGetUniformLocation(renderer.program, "material.specular"), 4.0f);
+    glUniform1f(glGetUniformLocation(renderer.program, "material.shininess"), model.mat.shininess);
 
     glUniformMatrix4fv(glGetUniformLocation(renderer.program, "model"), 1, GL_FALSE, glm::value_ptr(m));
     glUniformMatrix4fv(glGetUniformLocation(renderer.program, "pv"), 1, GL_FALSE, glm::value_ptr(p * v));
 
-    glBindVertexArray(mesh.vao);
-    glBindBuffer(GL_ARRAY_BUFFER, mesh.vbo);
+    glBindVertexArray(model.mesh.vao);
+    glBindBuffer(GL_ARRAY_BUFFER, model.mesh.vbo);
 
-    // note: hardcoded for now
+    // TODO: change note: hardcoded for now
     glDrawArrays(GL_TRIANGLES, 0, 36);
 
     glBindVertexArray(0);

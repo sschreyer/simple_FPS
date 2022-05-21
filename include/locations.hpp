@@ -5,6 +5,7 @@
 #include <camera.hpp>
 #include <light.hpp>
 #include <vector>
+#include <model.hpp>
 
 namespace locations {
     struct node_t {
@@ -13,8 +14,7 @@ namespace locations {
             STATIC_MESH,
             LIGHT_MESH
         } kind;
-        primitives::mesh_t mesh;
-        GLuint maps[2];
+        model::model_t model;
         glm::mat4 transform = glm::mat4(1);
         std::vector<node_t> children{};
     };

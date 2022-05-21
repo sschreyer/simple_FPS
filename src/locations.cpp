@@ -20,26 +20,33 @@ namespace locations {
 
         node_t light_1 {
                 node_t::LIGHT_MESH,
-                primitives::make_light_cube(),
-                {0,0},
+                {
+                        primitives::make_light_cube(),
+                        {0,0, 4.0f}
+                },
                 glm::translate(glm::mat4(1), {0, 0, 2}),
                 {}
         };
 
         node_t light_2 {
                 node_t::LIGHT_MESH,
-                primitives::make_light_cube(),
-                {0,0},
+                {
+                    primitives::make_light_cube(),
+                    {0,0, 4.0f}
+                },
                 glm::translate(glm::mat4(1), {10, 0, 2}),
                 {}
         };
 
         node_t room {
                 node_t::STATIC_MESH,
-                primitives::make_rect_prism(40,3,5),
                 {
-                    utils::make_texture("res/assets/Mossy_Cobblestone.png"),
-                    utils::make_texture("res/assets/Mossy_Cobblestone_SPEC.png")
+                        primitives::make_rect_prism(40, 3, 5),
+                        {
+                                utils::make_texture("res/assets/Mossy_Cobblestone.png"),
+                                utils::make_texture("res/assets/Mossy_Cobblestone_SPEC.png"),
+                                4.0f
+                        }
                 },
                 glm::mat4(1),
                 {light_1, light_2}
@@ -47,8 +54,10 @@ namespace locations {
 
         node_t root = {
                 node_t::EMPTY,
-                {},
-                {0,0},
+                {
+                        {0,0},
+                    {0,0}
+                },
                 glm::mat4(1),
                 {room}
         };

@@ -4,13 +4,21 @@
 #include <glm/glm.hpp>
 
 #include <glad/glad.h>
+#include <primitives.hpp>
 
 namespace model {
+
+
     struct material_t {
         // TODO: add more fields? - spec map for one thing. colour?
         GLuint tex;
         GLuint specular;
         float shininess;
+    };
+
+    struct model_t {
+        primitives::mesh_t mesh;
+        struct material_t mat;
     };
 }
 
