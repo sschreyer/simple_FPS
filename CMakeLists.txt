@@ -18,7 +18,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 include(copy_resources)
 copy_resources(${CMAKE_CURRENT_LIST_DIR}/res ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/res)
 
-add_executable(simple_shooter src/camera.cpp src/primitives.cpp include/primitives.hpp include/camera.hpp)
+add_executable(simple_shooter)
 target_include_directories(simple_shooter PUBLIC include)
 target_sources(simple_shooter
         ${target}
@@ -28,6 +28,8 @@ target_sources(simple_shooter
         include/camera.hpp
         include/model.hpp
         include/locations.hpp
+        include/renderer.hpp
+        include/light.hpp
 
         src/main.cpp
         src/utils.cpp
@@ -35,5 +37,7 @@ target_sources(simple_shooter
         src/camera.cpp
         src/model.cpp
         src/locations.cpp
+        src/renderer.cpp
+        src/light.cpp
         )
 target_link_libraries(simple_shooter PUBLIC ${LIBS})

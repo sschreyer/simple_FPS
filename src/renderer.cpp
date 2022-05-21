@@ -9,6 +9,9 @@
 #include <utility>
 #include <locations.hpp>
 
+// TODO: remove
+#include <iostream>
+
 renderer_t make_renderer(const glm::mat4 &projection) {
     // load shader
     GLuint vert_shader, frag_shader;
@@ -19,11 +22,16 @@ renderer_t make_renderer(const glm::mat4 &projection) {
     GLuint reg_shader = utils::make_shader(vert_shader, frag_shader);
     glUseProgram(reg_shader);
 
+    GLuint lightcube_vert, lightcube_frag;
+    lightcube_vert = utils::load_shader("res/shaders/light_src_vert.glsl", GL_VERTEX_SHADER);
+    lightcube_frag = utils::load_shader("res/shaders/light_src_frag.glsl", GL_FRAGMENT_SHADER);
+    GLuint lightcube_shader = utils::make_shader(lightcube_vert, lightcube_frag);
+
     // TODO: delete shaders here (i.e. clean up)
 
     return { projection,
              reg_shader,
-             0
+             lightcube_shader
     };
 }
 
@@ -31,9 +39,9 @@ renderer_t make_renderer(const glm::mat4 &projection) {
 void
 draw_lightcube(const renderer_t &renderer, const glm::mat4 &p, const glm::mat4 &v, const glm::mat4 &m, const locations::node_t &node) {
     const primitives::mesh_t mesh = node.mesh;
+    glUseProgram(renderer.lightcube_program);
 
-
-    glUniformMatrix4fv(glGetUniformLocation(renderer.program, "mvp"), 1, GL_FALSE, glm::value_ptr(p * v * m));
+    glUniformMatrix4fv(glGetUniformLocation(renderer.lightcube_program, "mvp"), 1, GL_FALSE, glm::value_ptr(p * v * m));
 
     glBindVertexArray(mesh.vao);
     glBindBuffer(GL_ARRAY_BUFFER, mesh.vbo);
@@ -49,6 +57,8 @@ draw_lightcube(const renderer_t &renderer, const glm::mat4 &p, const glm::mat4 &
 void
 draw(const renderer_t &renderer, const glm::mat4 &p, const glm::mat4 &v, const glm::mat4 &m, const locations::node_t &node) {
     const primitives::mesh_t mesh = node.mesh;
+
+//    glUseProgram(renderer.program);
 
     // set maps
     glActiveTexture(GL_TEXTURE0);

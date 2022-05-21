@@ -30,7 +30,7 @@ namespace locations {
                 node_t::LIGHT_MESH,
                 primitives::make_light_cube(),
                 {0,0},
-                glm::translate(glm::mat4(1), {0, 0, 2}),
+                glm::translate(glm::mat4(1), {10, 0, 2}),
                 {}
         };
 
