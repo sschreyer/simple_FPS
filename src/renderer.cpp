@@ -58,7 +58,7 @@ void
 draw(const renderer_t &renderer, const glm::mat4 &p, const glm::mat4 &v, const glm::mat4 &m, const locations::node_t &node) {
     const model::model_t model = node.model;
 
-//    glUseProgram(renderer.program);
+    //    glUseProgram(renderer.program);
 
     // set maps
     glActiveTexture(GL_TEXTURE0);

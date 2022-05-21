@@ -6,6 +6,7 @@
 namespace primitives {
 
     struct mesh_t {
+        // TODO: add num of verts?
         GLuint vao;
         GLuint vbo;
         // TODO - add EBO

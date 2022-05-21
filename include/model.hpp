@@ -10,7 +10,7 @@ namespace model {
 
 
     struct material_t {
-        // TODO: add more fields? - spec map for one thing. colour?
+        // TODO: add more fields? colour?
         GLuint tex;
         GLuint specular;
         float shininess;
