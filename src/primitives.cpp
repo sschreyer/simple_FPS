@@ -20,7 +20,6 @@ namespace primitives {
                 0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
                 -0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
                 -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-
         };
 
         // setup vao and vbo for walls
@@ -47,7 +46,7 @@ namespace primitives {
         glBindVertexArray(0);
 
 
-        return {vao, vbo};
+        return {vao, vbo, verts.size()};
     }
 
     mesh_t make_rect(int n_sq_h, int n_sq_v) {
@@ -96,7 +95,7 @@ namespace primitives {
 
 
         // TODO: ebo should be here lmao
-        return {vao, vbo};
+        return {vao, vbo, verts.size()};
     }
 
     mesh_t make_cube(int size) {
@@ -168,7 +167,7 @@ namespace primitives {
         // Unbinds the vao
         glBindVertexArray(0);
 
-        return {vao, vbo};
+        return {vao, vbo, verts.size()};
     }
 
     mesh_t make_light_cube() {
@@ -237,7 +236,7 @@ namespace primitives {
         // Unbinds the vao
         glBindVertexArray(0);
 
-        return {vao, vbo};
+        return {vao, vbo, verts.size()};
 
     }
 
@@ -310,7 +309,7 @@ namespace primitives {
         // Unbinds the vao
         glBindVertexArray(0);
 
-        return {vao, vbo};
+        return {vao, vbo, verts.size()};
     }
 
 }

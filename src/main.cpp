@@ -12,6 +12,9 @@
 #include <thread>
 #include <chrono>
 
+#define WINDOW_WIDTH  1920
+#define WINDOW_HEIGHT 1080
+
 /**
  * Returns the difference in time between when this function was previously called and this call.
  * @return A float representing the difference between function calls in seconds.
@@ -26,7 +29,7 @@ float time_now();
 
 int main() {
     // Initialise GLFW, make window, load OpenGL functions.
-    GLFWwindow *window = utils::initial_setup();
+    GLFWwindow *window = utils::initial_setup(WINDOW_WIDTH, WINDOW_HEIGHT);
     glEnable(GL_DEPTH_TEST);
 
     // Pass our projection matrix to the shader - remove magic nums soon - TODO: possibly move this code as the flow isn't great now

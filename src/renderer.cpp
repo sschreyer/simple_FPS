@@ -9,9 +9,6 @@
 #include <utility>
 #include <locations.hpp>
 
-// TODO: remove
-#include <iostream>
-
 renderer_t make_renderer(const glm::mat4 &projection) {
     // load shader
     GLuint vert_shader, frag_shader;
@@ -46,8 +43,7 @@ draw_lightcube(const renderer_t &renderer, const glm::mat4 &p, const glm::mat4 &
     glBindVertexArray(model.mesh.vao);
     glBindBuffer(GL_ARRAY_BUFFER, model.mesh.vbo);
 
-    // TODO: change note: hardcoded for now
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glDrawArrays(GL_TRIANGLES, 0, model.mesh.nverts);
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -77,8 +73,7 @@ draw(const renderer_t &renderer, const glm::mat4 &p, const glm::mat4 &v, const g
     glBindVertexArray(model.mesh.vao);
     glBindBuffer(GL_ARRAY_BUFFER, model.mesh.vbo);
 
-    // TODO: change note: hardcoded for now
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glDrawArrays(GL_TRIANGLES, 0, model.mesh.nverts);
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);

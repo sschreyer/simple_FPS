@@ -14,6 +14,7 @@
 
 #include <utils.hpp>
 
+
 namespace utils {
     // TODO: Add APPLE #define
     // make and return a pointer to a GLFWwindow
@@ -26,7 +27,7 @@ namespace utils {
         return window;
     }
 
-    GLFWwindow *initial_setup() {
+    GLFWwindow *initial_setup(int win_width, int win_height) {
         int success = glfwInit();
         if (!success) {
             std::cerr << "failed to initialise GLFW" << std::endl;
@@ -34,7 +35,7 @@ namespace utils {
         }
 
         // TODO: make width/height dynamic
-        GLFWwindow *window = utils::make_window(1920, 1080, "Simple Shooter");
+        GLFWwindow *window = utils::make_window(win_width, win_height, "Simple Shooter");
 
         glfwMakeContextCurrent(window);
         gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
